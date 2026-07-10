@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>ぬいぐるみおせわアプリ ～ゆめかわ☆だいすきパートナー～ (Nuigurumi Care App)</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!-- ぬいぐるみおせわ魔法帳 v3 — HTML (CodePen用) -->
+<div class="bg-layer"></div>
+<div class="stars" id="starsContainer"></div>
+
+<div class="wrapper">
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="header-deco">
+      <span>🎀</span><span class="gold">✦</span><span>⭐</span><span class="gold">✦</span><span>🎀</span>
+    </div>
+    <h1>ぬいぐるみおせわ魔法帳</h1>
+    <p class="header-sub">✦ たいせつな こを まほうで げんきに ✦</p>
+  </header>
+
+  <!-- キャラクターカード -->
+  <div class="glass-card chara-card">
+    <div class="ribbon-corner">🎀</div>
+
+    <!-- レベルバッジ -->
+    <div class="level-badge">
+      <span class="lv-num" id="lvNum">Lv.1</span>
+      <span class="lv-name" id="lvName">みならい</span>
+    </div>
+
+    <!-- 写真＋リアクション -->
+    <div class="photo-area">
+      <div class="photo-frame-outer">
+        <div class="photo-frame-ring"></div>
+        <div class="photo-frame-inner" id="photoFrame" onclick="document.getElementById('fileInput').click()">
+          <div class="photo-placeholder" id="placeholder">
+            <div class="cam">📷</div>
+            <p>タップして<br>しゃしんをえらぶ</p>
+          </div>
+          <img id="plushPhoto" src="" alt="" style="display:none">
+        </div>
+      </div>
+
+      <!-- 表情オーバーレイ -->
+      <div class="face-overlay" id="faceOverlay"></div>
+
+      <!-- 吹き出し -->
+      <div class="speech-bubble" id="speechBubble"></div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*">
+
+    <!-- 名前 -->
+    <div class="name-section">
+      <div class="name-label-row"><span>🌟</span><span class="name-lbl">なまえ</span><span>🌟</span></div>
+      <input type="text" id="nameInput" placeholder="なまえをいれてね" maxlength="10">
+    </div>
+  </div>
+
+  <!-- 今日のお願い -->
+  <div class="glass-card wish-card">
+    <div class="wish-icon" id="wishIcon">🍙</div>
+    <div class="wish-texts">
+      <div class="wish-label">✦ ぬいぐるみのおねがい ✦</div>
+      <div class="wish-text" id="wishText">ごはんが たべたいな〜</div>
+    </div>
+    <div class="wish-hint">かなえると ボーナス！⭐</div>
+  </div>
+
+  <!-- ごきげんメーター -->
+  <div class="glass-card mood-card">
+    <div class="ribbon-corner" style="font-size:.85rem">💜</div>
+    <div class="mood-title-row">
+      <div class="mood-title">💖 ごきげんど</div>
+      <div class="mood-num-display"><span id="moodNum">0</span><sup> / 100</sup></div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-glow" id="barGlow" data-z="1" style="width:0%"></div>
+    </div>
+    <div class="mood-emoji-row">
+      <span>😴 ねむねむ</span><span>😊 ふつう</span><span>🥰 さいこう</span>
+    </div>
+  </div>
+
+  <!-- アクションボタン 5つ (3+2) -->
+  <div class="btn-section btn-row3">
+    <button class="action-btn btn-gohan" id="btnGohan" onclick="doAction(this,'ごはん','🍙','gohan',15)">
+      <div class="btn-emoji">🍙</div><div class="btn-label">ごはん</div><div class="btn-badge">♥+15</div>
+    </button>
+    <button class="action-btn btn-ofuro" id="btnOfuro" onclick="doAction(this,'おふろ','🛁','ofuro',18)">
+      <div class="btn-emoji">🛁</div><div class="btn-label">おふろ</div><div class="btn-badge">♥+18</div>
+    </button>
+    <button class="action-btn btn-asobu" id="btnAsobu" onclick="doAction(this,'あそぶ','🎀','asobu',22)">
+      <div class="btn-emoji">🎀</div><div class="btn-label">あそぶ</div><div class="btn-badge">♥+22</div>
+    </button>
+  </div>
+  <div class="btn-section btn-row2">
+    <button class="action-btn btn-sanpo" id="btnSanpo" onclick="doAction(this,'おさんぽ','🚶','sanpo',20)">
+      <div class="btn-emoji">🚶</div><div class="btn-label">おさんぽ</div><div class="btn-badge">♥+20</div>
+    </button>
+    <button class="action-btn btn-neru" id="btnNeru" onclick="doAction(this,'ねかしつけ','😴','neru',25)">
+      <div class="btn-emoji">😴</div><div class="btn-label">ねかしつけ</div><div class="btn-badge">♥+25</div>
+    </button>
+  </div>
+
+  <!-- コレクション -->
+  <div class="glass-card item-card">
+    <div class="card-title">✦ もっているアイテム ✦</div>
+    <div class="item-grid" id="itemGrid">
+      <div class="item-empty">まだないよ 🌙<br>レベルアップやごほうびでゲット！</div>
+    </div>
+  </div>
+
+  <!-- きろく -->
+  <div class="glass-card log-card">
+    <div class="card-title">✦ きろく ✦</div>
+    <ul id="activityList"><li class="log-empty">まだきろくはないよ 🌙</li></ul>
+  </div>
+
+</div><!-- /wrapper -->
+
+<!-- フロートメッセージ -->
+<div class="float-msg" id="floatMsg"></div>
+
+<!-- ごほうびポップアップ -->
+<div class="reward-popup" id="rewardPopup">
+  <div class="reward-icon" id="rewardIcon">🎁</div>
+  <div class="reward-text" id="rewardText">クッキーをみつけた！</div>
+</div>
+
+<!-- レアリアクション -->
+<div class="rare-overlay" id="rareOverlay">
+  <div class="rare-inner">
+    <div class="rare-emoji" id="rareEmoji">✨</div>
+    <div class="rare-title" id="rareTitle">ひみつのダンス！</div>
+    <div class="rare-sub">レアリアクション発生！</div>
+  </div>
+</div>
+
+<!-- レベルアップ -->
+<div class="overlay" id="lvupOverlay">
+  <div class="lvup-box">
+    <div class="lvup-stars-bg" id="lvupStarsBg"></div>
+    <div class="lvup-emoji">🎀</div>
+    <div class="lvup-title">レベルアップ！</div>
+    <div class="lvup-lv" id="lvupLv">Lv.2 なかよし</div>
+    <div class="lvup-item-wrap">
+      <div class="lvup-item-label">アイテムゲット！</div>
+      <div class="lvup-item-icon" id="lvupItemIcon">👑</div>
+      <div class="lvup-item-name" id="lvupItemName">ティアラ</div>
+    </div>
+    <button class="overlay-btn" onclick="closeLvup()">やったー！✨</button>
+  </div>
+</div>
+
+<!-- だいまんぞく -->
+<div class="overlay" id="perfectOverlay">
+  <div class="perf-ribbon">🎀</div>
+  <div class="perf-title">だいまんぞく！</div>
+  <div class="perf-hearts">💖 💜 💖</div>
+  <div class="perf-sub" id="perfSub">よろこんでいるよ！💖</div>
+  <button class="overlay-btn" onclick="closePerfect()">🌟 ありがとう 🌟</button>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
