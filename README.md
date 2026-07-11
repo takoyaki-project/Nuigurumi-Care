@@ -11,7 +11,7 @@
 
 ## 🚀 公開URL
 
-[▶ アプリを開く](https://codepen.io/dfbitwqs-the-animator/full/XJNoXvv)
+[▶ アプリを開く](https://takoyaki-project.github.io/Nuigurumi-Care/)
 
 ## ✨ できること
 
